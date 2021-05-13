@@ -1,0 +1,15 @@
+--- !ruby/object:Jumpstart::Configuration
+application_name: Trade Assets
+business_name: Trade Assets LLC
+domain: example.com
+support_email: support@example.com
+default_from_email: Jumpstart <support@example.com>
+business_address: Chennai
+background_job_processor: async
+email_provider: ''
+personal_accounts: false
+livereload: false
+solargraph: true
+register_with_account: true
+multitenancy:
+- subdomain
