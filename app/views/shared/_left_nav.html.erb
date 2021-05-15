@@ -1,1 +1,13 @@
 <%# Place any links for the LEFT side of the nav bar here. Be sure to add class: "nav-link" to each item for proper spacing. %>
+<% if current_user && current_user.admin %>
+<%= nav_link_to "Countries", countries_path, class: 'nav-link' %>
+<%= nav_link_to "Currencies", currencies_path, class: 'nav-link' %>
+<%= nav_link_to "Base Products", base_products_path, class: 'nav-link' %>
+<%= nav_link_to "Base Rates", base_rates_path, class: 'nav-link' %>
+<%= nav_link_to "Products", products_path, class: 'nav-link' %>
+<%= nav_link_to "Bid Statuses", bid_statuses_path, class: 'nav-link' %>
+<%= nav_link_to "Offer Statuses", offer_statuses_path, class: 'nav-link' %>
+<% end %>
+<% if current_user %>
+<%= nav_link_to "Parties", parties_path, class: 'nav-link' %>
+<% end %>

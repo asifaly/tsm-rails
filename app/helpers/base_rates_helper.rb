@@ -1,0 +1,2 @@
+module BaseRatesHelper
+end

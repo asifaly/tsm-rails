@@ -1,0 +1,2 @@
+module BidStatusesHelper
+end

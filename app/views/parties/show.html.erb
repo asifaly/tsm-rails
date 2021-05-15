@@ -1,0 +1,31 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to "Parties", parties_path %> > Party #<%= @party.id %></h1>
+      <%= link_to t("edit"), edit_party_path(@party), class: "btn btn-link" %>
+    </div>
+
+    <div class="bg-white rounded shadow p-8">
+            <div class="mb-4">
+        <h5>Name</h5>
+        <%= @party.name %>
+      </div>
+            <div class="mb-4">
+        <h5>City</h5>
+        <%= @party.city %>
+      </div>
+            <div class="mb-4">
+        <h5>Bic</h5>
+        <%= @party.bic %>
+      </div>
+            <div class="mb-4">
+        <h5>Account</h5>
+        <%= @party.account %>
+      </div>
+            <div class="mb-4">
+        <h5>Country</h5>
+        <%= @party.country %>
+      </div>
+          </div>
+  </div>
+</div>

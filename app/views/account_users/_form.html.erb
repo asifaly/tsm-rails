@@ -5,8 +5,9 @@
   <div class="form-group">
     <% AccountUser::ROLES.each do |role| %>
       <div>
-        <%= form.check_box role, id: role.to_s.parameterize, class: "form-checkbox mr-1", disabled: role == :admin && account_user.account_owner? %>
-        <label for="<%= role.to_s.parameterize %>" class="inline-block"><%= role.to_s.humanize %></label>
+     <%= form.check_box role, id: role.to_s.parameterize, class: "form-checkbox mr-1", disabled: role == :admin && account_user.account_owner?, 
+        style: "#{'display:none' if @account.name != 'TSM' && role == :sysadmin}" %>
+   <label for="<%= role.to_s.parameterize %>" class="<%= @account.name !='TSM' && role == :sysadmin ? 'hidden' : 'inline-block'%>"><%= role.to_s.humanize  %></label>
       </div>
     <% end %>
   </div>

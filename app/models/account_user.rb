@@ -23,12 +23,12 @@
 class AccountUser < ApplicationRecord
   # Add account roles to this line
   # Do NOT to use any reserved words like `user` or `account`
-  ROLES = [:admin, :member]
+  ROLES = %i[admin member sysadmin]
 
   belongs_to :account
   belongs_to :user
 
-  validates :user_id, uniqueness: {scope: :account_id}
+  validates :user_id, uniqueness: { scope: :account_id }
   validate :owner_must_be_admin, on: :update, if: -> { admin_changed? && account_owner? }
 
   # Store the roles in the roles json column and cast to booleans
@@ -36,7 +36,7 @@ class AccountUser < ApplicationRecord
 
   # Cast roles to/from booleans
   ROLES.each do |role|
-    scope role, -> { where("roles @> ?", {role => true}.to_json) }
+    scope role, -> { where('roles @> ?', { role => true }.to_json) }
 
     define_method(:"#{role}=") { |value| super ActiveRecord::Type::Boolean.new.cast(value) }
     define_method(:"#{role}?") { send(role) }
@@ -57,8 +57,6 @@ class AccountUser < ApplicationRecord
   end
 
   def owner_must_be_admin
-    unless admin?
-      errors.add :admin, :cannot_be_removed
-    end
+    errors.add :admin, :cannot_be_removed unless admin?
   end
 end

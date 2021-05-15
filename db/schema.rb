@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_222152) do
+ActiveRecord::Schema.define(version: 2021_05_15_173020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,39 @@ ActiveRecord::Schema.define(version: 2021_04_22_222152) do
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
   end
 
+  create_table "base_products", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "base_rates", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "bid_statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "code"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "currencies", force: :cascade do |t|
+    t.string "code"
+    t.decimal "iso_code", precision: 3
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "notification_tokens", force: :cascade do |t|
     t.bigint "user_id"
     t.string "token", null: false
@@ -146,6 +179,24 @@ ActiveRecord::Schema.define(version: 2021_04_22_222152) do
     t.datetime "interacted_at"
     t.index ["account_id"], name: "index_notifications_on_account_id"
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient_type_and_recipient_id"
+  end
+
+  create_table "offer_statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "parties", force: :cascade do |t|
+    t.string "name"
+    t.string "city"
+    t.string "bic"
+    t.bigint "account_id", null: false
+    t.bigint "country_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_parties_on_account_id"
+    t.index ["country_id"], name: "index_parties_on_country_id"
   end
 
   create_table "pay_charges", force: :cascade do |t|
@@ -190,6 +241,15 @@ ActiveRecord::Schema.define(version: 2021_04_22_222152) do
     t.datetime "updated_at", null: false
     t.integer "trial_period_days", default: 0
     t.boolean "hidden"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "description"
+    t.boolean "funded"
+    t.bigint "base_product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["base_product_id"], name: "index_products_on_base_product_id"
   end
 
   create_table "user_connected_accounts", force: :cascade do |t|
@@ -257,5 +317,8 @@ ActiveRecord::Schema.define(version: 2021_04_22_222152) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
+  add_foreign_key "parties", "accounts"
+  add_foreign_key "parties", "countries"
+  add_foreign_key "products", "base_products"
   add_foreign_key "user_connected_accounts", "users"
 end
