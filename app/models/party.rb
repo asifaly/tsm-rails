@@ -22,6 +22,7 @@
 #  fk_rails_...  (country_id => countries.id)
 #
 class Party < ApplicationRecord
+  acts_as_tenant :account
   belongs_to :account
   belongs_to :country
 end
