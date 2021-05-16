@@ -1,0 +1,51 @@
+<div class="bg-white rounded shadow table-responsive mb-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :account_id, "From Bank", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :product_id, "Product", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :currency_id, "Currency", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :transaction_amount, "Transaction amount", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :percentage_sold, "Percentage sold", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :disclosed, "Disclosed", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :open_offer, "Open offer", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :risk_sold_amount, "Risk sold amount", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :base_rate_id, "Base Rate", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :rate, "Rate", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :spread, "Spread", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs"><%= sortable received_offers, :valid_until, "Valid until", class: "text-gray-700" %></th>
+        <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% received_offers.each do |offer| %>
+        <tr class="group border-t border-gray-400 hover:bg-gray-100">
+          <td class="p-3"><%= offer.account.name.titleize %></td>
+          <td class="p-3"><%= offer.product.description %></td>
+          <td class="p-3"><%= offer.currency.code %></td>
+          <td class="p-3"><%= offer.transaction_amount %></td>
+          <td class="p-3"><%= offer.percentage_sold %></td>
+          <td class="p-3"><%= offer.disclosed.to_s.titleize %></td>
+          <td class="p-3"><%= offer.open_offer.to_s.titleize %></td>
+          <td class="p-3"><%= offer.risk_sold_amount %></td>
+          <td class="p-3"><%= offer.base_rate.description %></td>
+          <td class="p-3"><%= offer.rate %></td>
+          <td class="p-3"><%= offer.spread %></td>
+          <td class="p-3"><%= offer.valid_until %></td>
+
+          <td>
+            <%= link_to t("shared.scaffold.view"), offer, class: "btn btn-link no-underline" %>
+            <%= link_to "Bid", new_offer_bid_path(offer), class: "btn btn-link no-underline" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% if pagyr.pages > 1 %>
+  <div class="text-center my-6">
+    <%== pagy_nav(pagyr) %>
+  </div>
+<% end %>

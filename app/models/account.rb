@@ -34,7 +34,9 @@ class Account < ApplicationRecord
   RESERVED_DOMAINS = [Jumpstart.config.domain]
   RESERVED_SUBDOMAINS = %w[app help support]
 
-  belongs_to :owner, class_name: "User"
+  belongs_to :owner, class_name: 'User'
+  has_many :offers
+  has_many :bids
   has_many :account_invitations, dependent: :destroy
   has_many :account_users, dependent: :destroy
   has_many :notifications, dependent: :destroy
@@ -48,8 +50,9 @@ class Account < ApplicationRecord
   has_one_attached :avatar
 
   validates :name, presence: true
-  validates :domain, exclusion: {in: RESERVED_DOMAINS, message: :reserved}
-  validates :subdomain, exclusion: {in: RESERVED_SUBDOMAINS, message: :reserved}, format: {with: /\A[a-zA-Z0-9]+[a-zA-Z0-9\-_]*[a-zA-Z0-9]+\Z/, message: :format, allow_blank: true}
+  validates :domain, exclusion: { in: RESERVED_DOMAINS, message: :reserved }
+  validates :subdomain, exclusion: { in: RESERVED_SUBDOMAINS, message: :reserved },
+                        format: { with: /\A[a-zA-Z0-9]+[a-zA-Z0-9\-_]*[a-zA-Z0-9]+\Z/, message: :format, allow_blank: true }
 
   def email
     account_users.includes(:user).order(created_at: :asc).first.user.email

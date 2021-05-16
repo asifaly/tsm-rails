@@ -44,7 +44,7 @@
       </div>
             <div class="mb-4">
         <h5>Base rate</h5>
-        <%= @offer.base_rate %>
+        <%= @offer.base_rate.description %>
       </div>
             <div class="mb-4">
         <h5>Spread</h5>
@@ -88,4 +88,8 @@
       </div>
           </div>
   </div>
+
+    <div class="bg-white rounded shadow p-8">
+      <%= render "bids", bids: @offer.bids %>
+    </div>
 </div>

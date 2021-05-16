@@ -13,10 +13,10 @@
         <thead>
           <tr>
             <th class="p-3 uppercase text-left text-xs"><%= sortable @bids, :offer_id, "Offer", class: "text-gray-700" %></th>
-            <th class="p-3 uppercase text-left text-xs"><%= sortable @bids, :account_id, "Account", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @bids, :account_id, "Offering Bank", class: "text-gray-700" %></th>
             <th class="p-3 uppercase text-left text-xs"><%= sortable @bids, :bid_amount, "Bid amount", class: "text-gray-700" %></th>
             <th class="p-3 uppercase text-left text-xs"><%= sortable @bids, :bid_status_id, "Bid status", class: "text-gray-700" %></th>
-            <th class="p-3 uppercase text-left text-xs"><%= sortable @bids, :base_rate_id, "Base rate", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @bids, :base_rate_id, "Base Rate", class: "text-gray-700" %></th>
             <th class="p-3 uppercase text-left text-xs"><%= sortable @bids, :rate, "Rate", class: "text-gray-700" %></th>
             <th class="p-3 uppercase text-left text-xs"><%= sortable @bids, :spread, "Spread", class: "text-gray-700" %></th>
             <th class="p-3 uppercase text-left text-xs"><%= sortable @bids, :bid_validity, "Bid validity", class: "text-gray-700" %></th>
@@ -29,10 +29,10 @@
         <% @bids.each do |bid| %>
           <tr class="group border-t border-gray-400 hover:bg-gray-100">
                       <td class="p-3"><%= bid.offer_id %></td>
-                      <td class="p-3"><%= bid.account_id %></td>
+                      <td class="p-3"><%= bid.offer.account.name %>
                       <td class="p-3"><%= bid.bid_amount %></td>
                       <td class="p-3"><%= bid.bid_status_id %></td>
-                      <td class="p-3"><%= bid.base_rate_id %></td>
+                      <td class="p-3"><%= bid.base_rate.description %></td>
                       <td class="p-3"><%= bid.rate %></td>
                       <td class="p-3"><%= bid.spread %></td>
                       <td class="p-3"><%= bid.bid_validity %></td>

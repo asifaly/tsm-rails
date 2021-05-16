@@ -41,7 +41,8 @@
 #  fk_rails_...  (product_id => products.id)
 #
 class Offer < ApplicationRecord
-  acts_as_tenant :account
+  # acts_as_tenant :account
+  has_many :bids, dependent: :destroy
   belongs_to :account
   belongs_to :product
   belongs_to :currency

@@ -1,18 +1,18 @@
 <div class="container mx-auto my-8 px-4">
   <div class="max-w-3xl mx-auto">
     <div class="flex justify-between items-center mb-4">
-      <h1 class="h3"><%= link_to "Bids", bids_path %> > Bid #<%= @bid.id %></h1>
-      <%= link_to t("edit"), edit_bid_path(@bid), class: "btn btn-link" %>
+      <h1 class="h3"><%= link_to "Bids", offer_path(@offer) %> > Bid #<%= @bid.id %></h1>
+      <%= link_to t("edit"), edit_offer_bid_path(@offer, @bid), class: "btn btn-link" %>
     </div>
 
     <div class="bg-white rounded shadow p-8">
             <div class="mb-4">
         <h5>Offer</h5>
-        <%= @bid.offer %>
+        <%= @bid.offer.id %> by <%= @bid.offer.account.name %>
       </div>
             <div class="mb-4">
-        <h5>Account</h5>
-        <%= @bid.account %>
+        <h5>Bidder Bank</h5>
+        <%= @bid.account.name %>
       </div>
             <div class="mb-4">
         <h5>Bid amount</h5>
@@ -20,11 +20,11 @@
       </div>
             <div class="mb-4">
         <h5>Bid status</h5>
-        <%= @bid.bid_status %>
+        <%= @bid.bid_status.name %>
       </div>
             <div class="mb-4">
         <h5>Base rate</h5>
-        <%= @bid.base_rate %>
+        <%= @bid.base_rate.description %>
       </div>
             <div class="mb-4">
         <h5>Rate</h5>
@@ -44,4 +44,5 @@
       </div>
           </div>
   </div>
+
 </div>

@@ -1,7 +1,8 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
-  resources :bids
-  resources :offers
+  resources :offers do
+    resources :bids
+  end
   authenticated :user do
     resources :parties
   end
