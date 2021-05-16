@@ -1,0 +1,121 @@
+<%= form_with(model: offer) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+
+  <div class="form-group">
+    <%= form.label :account_id, class: 'hidden'%>
+    <%= form.hidden_field :account_id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :product_id%>
+    <%= form.collection_select(:product_id, Product.all, :id, :description,{ include_blank: 'Select Product' }, {class: 'form-control'}) %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :currency_id%>
+    <%= form.collection_select(:currency_id, Currency.all, :id, :code,{ include_blank: 'Select Currency' }, {class: 'form-control'}) %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :transaction_amount%>
+    <%= form.text_field :transaction_amount, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :percentage_sold%>
+    <%= form.text_field :percentage_sold, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :disclosed%>
+    <%= form.check_box :disclosed, class: "form-checkbox" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :open_offer%>
+    <%= form.check_box :open_offer, class: "form-checkbox" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :risk_sold_amount%>
+    <%= form.text_field :risk_sold_amount, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :base_rate_id%>
+    <%= form.collection_select(:base_rate_id, BaseRate.all, :id, :description,{ include_blank: 'Select Rate Type' }, {class: 'form-control'}) %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :rate%>
+    <%= form.text_field :rate, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :spread%>
+    <%= form.text_field :spread, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :valid_until%>
+    <%= form.text_field :valid_until, class: "form-control", data: { controller: :flatpickr, flatpickr_enable_time: true, flatpickr_alt_input: true, flatpickr_alt_format: t("time.formats.long") } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :underlying_contract_details%>
+    <%= form.rich_text_area :underlying_contract_details, data: { controller: "mentions", mentions_target: "field" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :goods_description%>
+    <%= form.rich_text_area :goods_description, data: { controller: "mentions", mentions_target: "field" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :available_by%>
+    <%= form.select :available_by, Offer::payment_types.values, {include_blank: "Select Payment Type"}, {class: "form-control"} %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :expiry_date%>
+    <%= form.text_field :expiry_date, class: "form-control", data: { controller: :flatpickr, flatpickr_alt_input: true, flatpickr_alt_format: t("date.formats.long") } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :tenor_days%>
+    <%= form.number_field :tenor_days, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :shipment_mode%>
+    <%= form.select :shipment_mode, Offer::shipment_modes.values, {include_blank: "Select Shipment Mode"}, {class: "form-control"} %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :place_of_taking_incharge%>
+    <%= form.text_field :place_of_taking_incharge, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :port_of_loading%>
+    <%= form.text_field :port_of_loading, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :port_of_discharge%>
+    <%= form.text_field :port_of_discharge, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :final_destination%>
+    <%= form.text_field :final_destination, class: "form-control" %>
+  </div>
+
+  <div class="form-group flex justify-between">
+    <%= form.button class: "btn btn-primary" %>
+
+    <% if form.object.persisted? %>
+      <%= link_to t("delete"), form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,71 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="h3">Offers</h1>
+
+    <% if @offers.any? %>
+      <%= link_to t("shared.scaffold.new.title", model: "Offer"), new_offer_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <% if @offers.any? %>
+    <div class="bg-white rounded shadow table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :account_id, "Account", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :product_id, "Product", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :currency_id, "Currency", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :transaction_amount, "Transaction amount", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :percentage_sold, "Percentage sold", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :disclosed, "Disclosed", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :open_offer, "Open offer", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :risk_sold_amount, "Risk sold amount", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :rate, "Fixed rate", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :base_rate_id, "Base rate", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :spread, "Spread", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @offers, :valid_until, "Valid until", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% @offers.each do |offer| %>
+          <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                      <td class="p-3"><%= offer.account.name.titleize %></td>
+                      <td class="p-3"><%= offer.product.description %></td>
+                      <td class="p-3"><%= offer.currency.code %></td>
+                      <td class="p-3"><%= offer.transaction_amount %></td>
+                      <td class="p-3"><%= offer.percentage_sold %></td>
+                      <td class="p-3"><%= offer.disclosed.to_s.titleize %></td>
+                      <td class="p-3"><%= offer.open_offer.to_s.titleize %></td>
+                      <td class="p-3"><%= offer.risk_sold_amount %></td>
+                      <td class="p-3"><%= offer.rate %></td>
+                      <td class="p-3"><%= offer.base_rate_id %></td>
+                      <td class="p-3"><%= offer.spread %></td>
+                      <td class="p-3"><%= offer.valid_until %></td>
+          
+            <td>
+              <%= link_to t("shared.scaffold.view"), offer, class: "btn btn-link no-underline" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if @pagy.pages > 1 %>
+      <div class="text-center my-6">
+        <%== pagy_nav(@pagy) %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+      <div class="flex-1 text-center">
+        <p class="h3 mb-4">Create your first Offer</p>
+        <%= link_to t("shared.scaffold.new.title", model: "Offer"), new_offer_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

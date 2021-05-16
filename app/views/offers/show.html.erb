@@ -1,0 +1,91 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to "Offers", offers_path %> > Offer #<%= @offer.id %></h1>
+      <%= link_to t("edit"), edit_offer_path(@offer), class: "btn btn-link" %>
+    </div>
+
+    <div class="bg-white rounded shadow p-8">
+            <div class="mb-4">
+        <h5>Account</h5>
+        <%= @offer.account.name %>
+      </div>
+            <div class="mb-4">
+        <h5>Product</h5>
+        <%= @offer.product.description %>
+      </div>
+            <div class="mb-4">
+        <h5>Currency</h5>
+        <%= @offer.currency.description %>
+      </div>
+            <div class="mb-4">
+        <h5>Transaction amount</h5>
+        <%= @offer.transaction_amount %>
+      </div>
+            <div class="mb-4">
+        <h5>Percentage sold</h5>
+        <%= @offer.percentage_sold %>
+      </div>
+            <div class="mb-4">
+        <h5>Disclosed</h5>
+        <%= @offer.disclosed.to_s.titleize %>
+      </div>
+            <div class="mb-4">
+        <h5>Open offer</h5>
+        <%= @offer.open_offer.to_s.titleize %>
+      </div>
+            <div class="mb-4">
+        <h5>Risk sold amount</h5>
+        <%= @offer.risk_sold_amount %>
+      </div>
+            <div class="mb-4">
+        <h5>Fixed rate</h5>
+        <%= @offer.rate %>
+      </div>
+            <div class="mb-4">
+        <h5>Base rate</h5>
+        <%= @offer.base_rate %>
+      </div>
+            <div class="mb-4">
+        <h5>Spread</h5>
+        <%= @offer.spread %>
+      </div>
+            <div class="mb-4">
+        <h5>Valid until</h5>
+        <%= @offer.valid_until %>
+      </div>
+            <div class="mb-4">
+        <h5>Underlying contract details</h5>
+        <%= @offer.underlying_contract_details %>
+      </div>
+            <div class="mb-4">
+        <h5>Goods description</h5>
+        <%= @offer.goods_description %>
+      </div>
+            <div class="mb-4">
+        <h5>Expiry date</h5>
+        <%= @offer.expiry_date %>
+      </div>
+            <div class="mb-4">
+        <h5>Tenor days</h5>
+        <%= @offer.tenor_days %>
+      </div>
+            <div class="mb-4">
+        <h5>Place of taking incharge</h5>
+        <%= @offer.place_of_taking_incharge %>
+      </div>
+            <div class="mb-4">
+        <h5>Port of loading</h5>
+        <%= @offer.port_of_loading %>
+      </div>
+            <div class="mb-4">
+        <h5>Port of discharge</h5>
+        <%= @offer.port_of_discharge %>
+      </div>
+            <div class="mb-4">
+        <h5>Final destination</h5>
+        <%= @offer.final_destination %>
+      </div>
+          </div>
+  </div>
+</div>

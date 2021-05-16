@@ -1,0 +1,47 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to "Bids", bids_path %> > Bid #<%= @bid.id %></h1>
+      <%= link_to t("edit"), edit_bid_path(@bid), class: "btn btn-link" %>
+    </div>
+
+    <div class="bg-white rounded shadow p-8">
+            <div class="mb-4">
+        <h5>Offer</h5>
+        <%= @bid.offer %>
+      </div>
+            <div class="mb-4">
+        <h5>Account</h5>
+        <%= @bid.account %>
+      </div>
+            <div class="mb-4">
+        <h5>Bid amount</h5>
+        <%= @bid.bid_amount %>
+      </div>
+            <div class="mb-4">
+        <h5>Bid status</h5>
+        <%= @bid.bid_status %>
+      </div>
+            <div class="mb-4">
+        <h5>Base rate</h5>
+        <%= @bid.base_rate %>
+      </div>
+            <div class="mb-4">
+        <h5>Rate</h5>
+        <%= @bid.rate %>
+      </div>
+            <div class="mb-4">
+        <h5>Spread</h5>
+        <%= @bid.spread %>
+      </div>
+            <div class="mb-4">
+        <h5>Bid validity</h5>
+        <%= @bid.bid_validity %>
+      </div>
+            <div class="mb-4">
+        <h5>Conditions</h5>
+        <%= @bid.conditions %>
+      </div>
+          </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_15_173020) do
+ActiveRecord::Schema.define(version: 2021_05_16_090743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,23 @@ ActiveRecord::Schema.define(version: 2021_05_15_173020) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "bids", force: :cascade do |t|
+    t.bigint "offer_id", null: false
+    t.bigint "account_id", null: false
+    t.decimal "bid_amount", precision: 14, scale: 2
+    t.bigint "bid_status_id", null: false
+    t.bigint "base_rate_id"
+    t.decimal "rate", precision: 4, scale: 2
+    t.decimal "spread", precision: 4, scale: 2
+    t.datetime "bid_validity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_bids_on_account_id"
+    t.index ["base_rate_id"], name: "index_bids_on_base_rate_id"
+    t.index ["bid_status_id"], name: "index_bids_on_bid_status_id"
+    t.index ["offer_id"], name: "index_bids_on_offer_id"
+  end
+
   create_table "countries", force: :cascade do |t|
     t.string "code"
     t.string "description"
@@ -186,6 +203,9 @@ ActiveRecord::Schema.define(version: 2021_05_15_173020) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
+
+# Could not dump table "offers" because of following StandardError
+#   Unknown type 'payment_types' for column 'available_by'
 
   create_table "parties", force: :cascade do |t|
     t.string "name"
@@ -317,6 +337,14 @@ ActiveRecord::Schema.define(version: 2021_05_15_173020) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
+  add_foreign_key "bids", "accounts"
+  add_foreign_key "bids", "base_rates"
+  add_foreign_key "bids", "bid_statuses"
+  add_foreign_key "bids", "offers"
+  add_foreign_key "offers", "accounts"
+  add_foreign_key "offers", "base_rates"
+  add_foreign_key "offers", "currencies"
+  add_foreign_key "offers", "products"
   add_foreign_key "parties", "accounts"
   add_foreign_key "parties", "countries"
   add_foreign_key "products", "base_products"

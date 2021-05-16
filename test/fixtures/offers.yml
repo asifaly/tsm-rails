@@ -1,0 +1,82 @@
+# == Schema Information
+#
+# Table name: offers
+#
+#  id                       :bigint           not null, primary key
+#  available_by             :enum
+#  disclosed                :boolean
+#  expiry_date              :date
+#  final_destination        :string
+#  open_offer               :boolean
+#  percentage_sold          :decimal(4, 2)
+#  place_of_taking_incharge :string
+#  port_of_discharge        :string
+#  port_of_loading          :string
+#  rate                     :decimal(4, 2)
+#  risk_sold_amount         :decimal(14, 2)
+#  shipment_mode            :enum
+#  spread                   :decimal(4, 2)
+#  tenor_days               :integer
+#  transaction_amount       :decimal(14, 2)
+#  valid_until              :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  account_id               :bigint           not null
+#  base_rate_id             :bigint
+#  currency_id              :bigint           not null
+#  product_id               :bigint           not null
+#
+# Indexes
+#
+#  index_offers_on_account_id    (account_id)
+#  index_offers_on_base_rate_id  (base_rate_id)
+#  index_offers_on_currency_id   (currency_id)
+#  index_offers_on_product_id    (product_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (account_id => accounts.id)
+#  fk_rails_...  (base_rate_id => base_rates.id)
+#  fk_rails_...  (currency_id => currencies.id)
+#  fk_rails_...  (product_id => products.id)
+#
+
+one:
+  account: one
+  product: one
+  currency: one
+  transaction_amount: 9.99
+  percentage_sold: 9.99
+  disclosed: false
+  open_offer: false
+  risk_sold_amount: 9.99
+  fixed_rate: 9.99
+  base_rate: one
+  spread: 9.99
+  valid_until: 2021-05-16 12:04:51
+  expiry_date: 2021-05-16
+  tenor_days: 1
+  place_of_taking_incharge: MyString
+  port_of_loading: MyString
+  port_of_discharge: MyString
+  final_destination: MyString
+
+two:
+  account: two
+  product: two
+  currency: two
+  transaction_amount: 9.99
+  percentage_sold: 9.99
+  disclosed: false
+  open_offer: false
+  risk_sold_amount: 9.99
+  fixed_rate: 9.99
+  base_rate: two
+  spread: 9.99
+  valid_until: 2021-05-16 12:04:51
+  expiry_date: 2021-05-16
+  tenor_days: 1
+  place_of_taking_incharge: MyString
+  port_of_loading: MyString
+  port_of_discharge: MyString
+  final_destination: MyString

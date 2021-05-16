@@ -38,7 +38,7 @@ PRODUCTS = [
   { description: 'Reimbursement Authorization Financing', base_product_id: 5, funded: true }
 ]
 
-BASE_RATES = %w[LIBOR HIBOR MIBOR SOFOR EURIBOR].freeze
+BASE_RATES = %w[FIXED LIBOR HIBOR MIBOR SOFOR EURIBOR].freeze
 BID_STATUSES = ['DRAFT', 'AWAITING SIGNATURE', 'SUBMITTED', 'ACCEPTED', 'REJECTED', 'CANCELLED', 'RENEGOTIATION'].freeze
 OFFER_STATUSES = ['DRAFT', 'AWAITING SIGNATURE', 'OPEN', 'COMPLETED', 'ARCHIVED'].freeze
 
