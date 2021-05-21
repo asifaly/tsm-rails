@@ -1,60 +1,65 @@
-<div class="container mx-auto my-8 px-4">
-  <div class="flex justify-between items-center mb-4">
-    <h1 class="h3">Bids</h1>
+<div class="flex justify-between items-center mb-4">
+  <h1 class="h3 mt-4">
+    <%= @owner ? "All Bids" : "My Bids" %></h1>
 
-    <% if bids.any? %>
-      <%= link_to t("shared.scaffold.new.title", model: "Bid"), new_offer_bid_path(@offer), class: "btn btn-primary" %>
-    <% end %>
-  </div>
+  <% if bids.any? && !@owner%>
+    <%= link_to t("shared.scaffold.new.title", model: "Bid"), new_offer_bid_path(@offer), class: "btn btn-primary" %>
+  <% end %>
+</div>
 
-  <% if bids.any? %>
-    <div class="bg-white rounded shadow table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :offer_id, "Offer", class: "text-gray-700" %></th>
-            <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :account_id, "Offering Bank", class: "text-gray-700" %></th>
-            <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :bid_amount, "Bid amount", class: "text-gray-700" %></th>
-            <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :bid_status_id, "Bid status", class: "text-gray-700" %></th>
-            <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :base_rate_id, "Base Rate", class: "text-gray-700" %></th>
-            <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :rate, "Rate", class: "text-gray-700" %></th>
-            <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :spread, "Spread", class: "text-gray-700" %></th>
-            <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :bid_validity, "Bid validity", class: "text-gray-700" %></th>
-            <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :conditions, "Conditions", class: "text-gray-700" %></th>
-            <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
-          </tr>
-        </thead>
+<% if bids.any? %>
+  <div class="bg-white rounded shadow table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :offer_id, "Offer", class: "text-gray-700" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :account_id, "Bidder Bank", class: "text-gray-700" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :bid_amount, "Bid amount", class: "text-gray-700" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :base_rate_id, "Base Rate", class: "text-gray-700" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :rate, "Rate", class: "text-gray-700" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :spread, "Spread", class: "text-gray-700" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :bid_validity, "Bid validity", class: "text-gray-700" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :conditions, "Conditions", class: "text-gray-700" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :bid_status_id, "Bid status", class: "text-gray-700" %></th>
+          <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+        </tr>
+      </thead>
 
-        <tbody>
+      <tbody>
         <% bids.each do |bid| %>
           <tr class="group border-t border-gray-400 hover:bg-gray-100">
-                      <td class="p-3"><%= bid.offer_id %></td>
-                      <td class="p-3"><%= bid.offer.account.name %>
-                      <td class="p-3"><%= bid.bid_amount %></td>
-                      <td class="p-3"><%= bid.bid_status_id %></td>
-                      <td class="p-3"><%= bid.base_rate.description %></td>
-                      <td class="p-3"><%= bid.rate %></td>
-                      <td class="p-3"><%= bid.spread %></td>
-                      <td class="p-3"><%= bid.bid_validity %></td>
-                      <td class="p-3"><%= bid.conditions %></td>
-          
+            <td class="p-3"><%= bid.offer_id %></td>
+            <% if current_account == bid.offer.account %>
+              <td class="p-3"><%= bid.account.name %>
+            <% else %>
+              <td class="p-3"><%= bid.offer.account.name %>
+            <% end %>
+            <td class="p-3"><%= bid.bid_amount %></td>
+            <td class="p-3"><%= bid.base_rate.description %></td>
+            <td class="p-3"><%= bid.rate %></td>
+            <td class="p-3"><%= bid.spread %></td>
+            <td class="p-3"><%= bid.bid_validity %></td>
+            <td class="p-3"><%= bid.conditions %></td>
+            <td class="p-3"><%= bid.bid_status.name %></td>
+
             <td>
               <%= link_to t("shared.scaffold.view"), offer_bid_path(@offer, bid), class: "btn btn-link no-underline" %>
             </td>
           </tr>
         <% end %>
-        </tbody>
-      </table>
-    </div>
+      </tbody>
+    </table>
+  </div>
 
 
-  <% else %>
-    <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
-      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
-      <div class="flex-1 text-center">
-        <p class="h3 mb-4">Create your first Bid</p>
+<% else %>
+  <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+    <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+    <div class="flex-1 text-center">
+      <p class="h3 mb-4"><%= @owner ? "No Bids Yet" : "Create your first Bid"%></p>
+      <% if !@owner %>
         <%= link_to t("shared.scaffold.new.title", model: "Bid"), new_offer_bid_path(@offer), class: "btn btn-primary" %>
-      </div>
+      <% end %>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

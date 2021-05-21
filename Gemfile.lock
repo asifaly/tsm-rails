@@ -116,11 +116,20 @@ GEM
     backport (1.1.2)
     bcrypt (3.1.16)
     benchmark (0.1.1)
+    better_errors (2.9.1)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     bindex (0.8.1)
+    binding_of_caller (1.0.0)
+      debug_inspector (>= 0.0.1)
     bootsnap (1.7.4)
       msgpack (~> 1.0)
     brakeman (5.0.1)
     builder (3.2.4)
+    bullet (6.1.4)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     byebug (11.1.3)
     capybara (3.35.3)
       addressable
@@ -138,6 +147,7 @@ GEM
     crass (1.0.6)
     datetime_picker_rails (0.0.7)
       momentjs-rails (>= 2.8.1)
+    debug_inspector (1.1.0)
     devise (4.8.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -414,6 +424,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.7)
     unicode-display_width (2.0.0)
+    uniform_notifier (1.14.2)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.1.0)
@@ -451,8 +462,11 @@ DEPENDENCIES
   administrate-field-active_storage (~> 0.3.0)
   annotate
   attr_encrypted (~> 3.1)
+  better_errors
+  binding_of_caller
   bootsnap (>= 1.4.2)
   brakeman
+  bullet
   bundler-audit!
   byebug
   capybara (>= 2.15)

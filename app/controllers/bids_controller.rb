@@ -1,10 +1,17 @@
 class BidsController < ApplicationController
-  before_action :set_offer
+  before_action :set_offer, only: %i[indes show edit update destroy new create]
   before_action :set_bid, only: %i[show edit update destroy]
 
   # GET /bids
+  def all
+    @allbpagy, @allbids = pagy(Bid.where(account: current_account).includes(%i[account base_rate]).sort_by_params(
+                                 params[:sort], sort_direction
+                               ))
+    @allbids.load
+  end
+
   def index
-    @pagy, @bids = pagy(@offer.bids.sort_by_params(params[:sort], sort_direction))
+    @pagy, @bids = pagy(@offer.bids.includes(%i[account base_rate]).sort_by_params(params[:sort], sort_direction))
 
     # We explicitly load the records to avoid triggering multiple DB calls in the views when checking if records exist and iterating over them.
     # Calling @bids.any? in the view will use the loaded records to check existence instead of making an extra DB call.
@@ -25,6 +32,7 @@ class BidsController < ApplicationController
   # POST /bids
   def create
     @bid = @offer.bids.new(bid_params)
+    @bid.account = current_account
 
     if @bid.save
       redirect_to offer_path(@offer), notice: 'Bid was successfully created.'

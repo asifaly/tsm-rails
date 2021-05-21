@@ -1,10 +1,11 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
-  resources :offers do
-    resources :bids
-  end
   authenticated :user do
     resources :parties
+    resources :offers do
+      resources :bids
+    end
+    get 'bids/all'
   end
 
   authenticated :user, ->(u) { u.admin? } do

@@ -1,0 +1,59 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="h3">Bids</h1>
+
+  </div>
+
+  <% if @allbids.any? %>
+    <div class="bg-white rounded shadow table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @allbids, :account_id, "Offering Bank", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @allbids, :bid_amount, "Bid amount", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @allbids, :bid_status_id, "Bid status", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @allbids, :base_rate_id, "Base Rate", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @allbids, :rate, "Rate", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @allbids, :spread, "Spread", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @allbids, :bid_validity, "Bid validity", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @allbids, :conditions, "Conditions", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @allbids.each do |bid| %>
+            <tr class="group border-t border-gray-400 hover:bg-gray-100">
+              <td class="p-3"><%= bid.offer.account.name %>
+              <td class="p-3"><%= bid.bid_amount %></td>
+              <td class="p-3"><%= bid.bid_status_id %></td>
+              <td class="p-3"><%= bid.base_rate.description %></td>
+              <td class="p-3"><%= bid.rate %></td>
+              <td class="p-3"><%= bid.spread %></td>
+              <td class="p-3"><%= bid.bid_validity %></td>
+              <td class="p-3"><%= bid.conditions %></td>
+
+              <td>
+                <%= link_to "View", [bid.offer, bid], class: "btn btn-link no-underline" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if @allbpagy.pages > 1 %>
+      <div class="text-center my-6">
+        <%== pagy_nav(@allbpagy) %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+      <div class="flex-1 text-center">
+        <p class="h3 mb-4">No Bids Yet. You can Bid from the Offers Page</p>
+      </div>
+    </div>
+  <% end %>
+</div>

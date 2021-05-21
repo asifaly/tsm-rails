@@ -29,7 +29,6 @@
 #  fk_rails_...  (offer_id => offers.id)
 #
 class Bid < ApplicationRecord
-  acts_as_tenant :account
   belongs_to :offer
   belongs_to :account
   belongs_to :bid_status

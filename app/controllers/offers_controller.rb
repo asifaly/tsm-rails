@@ -3,9 +3,10 @@ class OffersController < ApplicationController
 
   # GET /offers
   def index
-    @pagyc, @offers = pagy(Offer.where(account: current_account).sort_by_params(params[:sort], sort_direction))
-    @pagyr, @received_offers = pagy(Offer.where.not(account: current_account).sort_by_params(params[:sort],
-                                                                                             sort_direction))
+    @pagyc, @offers = pagy(Offer.where(account: current_account)
+                        .sort_by_params(params[:sort], sort_direction))
+    @pagyr, @received_offers = pagy(Offer.where.not(account: current_account)
+                                .sort_by_params(params[:sort], sort_direction))
     # We explicitly load the records to avoid triggering multiple DB calls in the views when checking if records exist and iterating over them.
     # Calling @offers.any? in the view will use the loaded records to check existence instead of making an extra DB call.
     @offers.load
@@ -13,7 +14,14 @@ class OffersController < ApplicationController
   end
 
   # GET /offers/1
-  def show; end
+  def show
+    @owner = current_account == @offer.account
+    @bids = if @owner
+              @offer.bids.where(bid_status_id: 3).includes(%i[account base_rate bid_status rich_text_conditions])
+            else
+              @offer.bids.where(account: current_account).includes(%i[base_rate bid_status])
+            end
+  end
 
   # GET /offers/new
   def new
@@ -26,6 +34,7 @@ class OffersController < ApplicationController
   # POST /offers
   def create
     @offer = Offer.new(offer_params)
+    @offer.account = current_account
 
     if @offer.save
       redirect_to @offer, notice: 'Offer was successfully created.'
