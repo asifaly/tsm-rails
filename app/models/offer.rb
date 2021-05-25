@@ -16,6 +16,7 @@
 #  risk_sold_amount         :decimal(14, 2)
 #  shipment_mode            :enum
 #  spread                   :decimal(4, 2)
+#  status                   :string
 #  tenor_days               :integer
 #  transaction_amount       :decimal(14, 2)
 #  valid_until              :datetime
@@ -42,6 +43,7 @@
 #
 class Offer < ApplicationRecord
   # acts_as_tenant :account
+  include AASM
   has_many :bids, dependent: :destroy
   belongs_to :account
   belongs_to :product
@@ -51,6 +53,39 @@ class Offer < ApplicationRecord
   has_rich_text :goods_description
   # enum rate_types: { fixed: 'Fixed', floating: 'Floating' }
   enum shipment_modes: { sea: 'SEA', air: 'AIR', rail: 'RAIL', road: 'ROAD', multi: 'MULTI-MODAL' }
-  enum payment_types: { payment: 'PAYMENT', acceptance: 'ACCEPTANCE', negotiation: 'NEGOTIATION',
-                        deffered: 'DEFERRED PAYMENT' }
+  enum payment_types: { payment: 'PAYMENT', acceptance: 'ACCEPTANCE', deferred: 'DEFERRED PAYMENT',
+                        negotiation: 'NEGOTIATION' }
+  STATUSES = { draft: 'review1', review1: 'review2', review2: 'final', final: 'archive' }.freeze
+
+  aasm column: :status do
+    state :draft, initial: true
+    state :review1
+    state :review2
+    state :final
+    state :archive
+
+    event :review1 do
+      transitions from: :draft, to: :review1
+    end
+
+    event :review2 do
+      transitions from: :review1, to: :review2
+    end
+
+    event :final do
+      transitions from: :review2, to: :final
+    end
+
+    event :archive do
+      transitions from: :final, to: :archive
+    end
+
+    event :return do
+      transitions from: %i[review1 review2], to: :draft
+    end
+  end
+
+  def next_state
+    STATUSES[status.to_sym]
+  end
 end

@@ -32,12 +32,10 @@
     <%= form.rich_text_area :conditions, data: { controller: "mentions", mentions_target: "field" } %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :bid_status_id%>
-    <%= form.collection_select(:bid_status_id, BidStatus.all, :id, :name,{}, {class: 'form-control'}) %>
-  </div>
   <div class="form-group flex justify-between">
-    <%= form.button class: "btn btn-primary" %>
+    <%= form.submit "Save", class: "btn btn-primary" %>
+    <%= form.submit "Send To #{bid.next_state.humanize}", name: :next_state,  class: "btn btn-primary" %>
+    <%= form.submit "Reject", name: :draft, class: "btn btn-primary" if bid.may_review2? || bid.may_final? %>
 
     <% if form.object.persisted? %>
       <%= link_to t("delete"), [@offer,form.object], class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>

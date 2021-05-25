@@ -73,7 +73,7 @@
 
   <div class="form-group">
     <%= form.label :available_by%>
-    <%= form.select :available_by, Offer::payment_types.values, {include_blank: "Select Payment Type"}, {class: "form-control"} %>
+    <%= form.select :available_by, options_for_select(Offer.payment_types.map {|k, v| [v, k]}), {include_blank: "Select Payment Type"}, {class: "form-control"} %>
   </div>
 
   <div class="form-group">
@@ -88,7 +88,8 @@
 
   <div class="form-group">
     <%= form.label :shipment_mode%>
-    <%= form.select :shipment_mode, Offer::shipment_modes.values, {include_blank: "Select Shipment Mode"}, {class: "form-control"} %>
+    <%# <%= form.select :shipment_mode, Offer::shipment_modes, {include_blank: "Select Shipment Mode"}, {class: "form-control"} %1> %>
+    <%= form.select :shipment_mode, options_for_select(Offer.shipment_modes.map {|k, v| [v, k]}), {include_blank: "Select Shipment Mode"}, {class: "form-control"} %>
   </div>
 
   <div class="form-group">
@@ -111,8 +112,11 @@
     <%= form.text_field :final_destination, class: "form-control" %>
   </div>
 
+
   <div class="form-group flex justify-between">
-    <%= form.button class: "btn btn-primary" %>
+    <%= form.submit "Save", class: "btn btn-primary" %>
+    <%= form.submit "Send To #{offer.next_state.humanize}", name: :next_state,  class: "btn btn-primary" %>
+    <%= form.submit "Reject", name: :draft, class: "btn btn-primary" if offer.may_review2? || offer.may_final? %>
 
     <% if form.object.persisted? %>
       <%= link_to t("delete"), form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>

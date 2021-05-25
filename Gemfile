@@ -19,7 +19,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'redis', '~> 4.0'
 
 # Reduces boot times through caching; required in config/boot.rb
+gem 'aasm'
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'pundit'
 
 # Security update
 gem 'nokogiri', '>= 1.10.8'

@@ -16,6 +16,7 @@
 #  risk_sold_amount         :decimal(14, 2)
 #  shipment_mode            :enum
 #  spread                   :decimal(4, 2)
+#  status                   :string
 #  tenor_days               :integer
 #  transaction_amount       :decimal(14, 2)
 #  valid_until              :datetime

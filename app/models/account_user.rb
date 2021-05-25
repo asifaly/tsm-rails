@@ -23,7 +23,7 @@
 class AccountUser < ApplicationRecord
   # Add account roles to this line
   # Do NOT to use any reserved words like `user` or `account`
-  ROLES = %i[admin member sysadmin]
+  ROLES = %i[admin member sysadmin].freeze
 
   belongs_to :account
   belongs_to :user

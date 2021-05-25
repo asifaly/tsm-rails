@@ -147,16 +147,15 @@ ActiveRecord::Schema.define(version: 2021_05_16_090743) do
     t.bigint "offer_id", null: false
     t.bigint "account_id", null: false
     t.decimal "bid_amount", precision: 14, scale: 2
-    t.bigint "bid_status_id", null: false
     t.bigint "base_rate_id"
     t.decimal "rate", precision: 4, scale: 2
     t.decimal "spread", precision: 4, scale: 2
     t.datetime "bid_validity"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_bids_on_account_id"
     t.index ["base_rate_id"], name: "index_bids_on_base_rate_id"
-    t.index ["bid_status_id"], name: "index_bids_on_bid_status_id"
     t.index ["offer_id"], name: "index_bids_on_offer_id"
   end
 
@@ -339,7 +338,6 @@ ActiveRecord::Schema.define(version: 2021_05_16_090743) do
   add_foreign_key "api_tokens", "users"
   add_foreign_key "bids", "accounts"
   add_foreign_key "bids", "base_rates"
-  add_foreign_key "bids", "bid_statuses"
   add_foreign_key "bids", "offers"
   add_foreign_key "offers", "accounts"
   add_foreign_key "offers", "base_rates"

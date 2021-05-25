@@ -20,7 +20,7 @@
           <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :spread, "Spread", class: "text-gray-700" %></th>
           <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :bid_validity, "Bid validity", class: "text-gray-700" %></th>
           <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :conditions, "Conditions", class: "text-gray-700" %></th>
-          <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :bid_status_id, "Bid status", class: "text-gray-700" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= sortable bids, :status, "Bid status", class: "text-gray-700" %></th>
           <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
         </tr>
       </thead>
@@ -40,7 +40,7 @@
             <td class="p-3"><%= bid.spread %></td>
             <td class="p-3"><%= bid.bid_validity %></td>
             <td class="p-3"><%= bid.conditions %></td>
-            <td class="p-3"><%= bid.bid_status.name %></td>
+            <td class="p-3"><%= bid.status %></td>
 
             <td>
               <%= link_to t("shared.scaffold.view"), offer_bid_path(@offer, bid), class: "btn btn-link no-underline" %>

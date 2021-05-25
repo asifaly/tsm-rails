@@ -17,9 +17,9 @@ class OffersController < ApplicationController
   def show
     @owner = current_account == @offer.account
     @bids = if @owner
-              @offer.bids.where(bid_status_id: 3).includes(%i[account base_rate bid_status rich_text_conditions])
+              @offer.bids.includes(%i[account base_rate rich_text_conditions])
             else
-              @offer.bids.where(account: current_account).includes(%i[base_rate bid_status])
+              @offer.bids.where(account: current_account).includes(%i[base_rate])
             end
   end
 
@@ -35,6 +35,7 @@ class OffersController < ApplicationController
   def create
     @offer = Offer.new(offer_params)
     @offer.account = current_account
+    @offer.send(@offer.next_state) if params[:next_state]
 
     if @offer.save
       redirect_to @offer, notice: 'Offer was successfully created.'
@@ -45,6 +46,10 @@ class OffersController < ApplicationController
 
   # PATCH/PUT /offers/1
   def update
+    puts params[:next_state]
+    @offer.send(@offer.next_state) if params[:next_state]
+    @offer.return if params[:draft]
+
     if @offer.update(offer_params)
       redirect_to @offer, notice: 'Offer was successfully updated.'
     else
@@ -68,6 +73,6 @@ class OffersController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def offer_params
     params.require(:offer).permit(:account_id, :product_id, :currency_id, :transaction_amount, :percentage_sold,
-                                  :disclosed, :open_offer, :risk_sold_amount, :fixed_rate, :base_rate_id, :spread, :valid_until, :underlying_contract_details, :goods_description, :expiry_date, :tenor_days, :place_of_taking_incharge, :port_of_loading, :port_of_discharge, :final_destination)
+                                  :disclosed, :open_offer, :risk_sold_amount, :rate, :available_by, :shipment_mode, :status, :base_rate_id, :spread, :valid_until, :underlying_contract_details, :goods_description, :expiry_date, :tenor_days, :place_of_taking_incharge, :port_of_loading, :port_of_discharge, :final_destination)
   end
 end
