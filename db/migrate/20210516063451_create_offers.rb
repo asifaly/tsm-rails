@@ -19,6 +19,7 @@ class CreateOffers < ActiveRecord::Migration[6.1]
       t.string :port_of_loading
       t.string :port_of_discharge
       t.string :final_destination
+      t.string :status
 
       t.timestamps
     end
